@@ -1,6 +1,10 @@
 package com.mygdx.clicker.Entities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Player extends Image {
@@ -19,5 +23,27 @@ public class Player extends Image {
 
         // starting position
         this.setPosition(STARTING_X,STARTING_Y);
+    }
+
+    public void reactOnClick() {
+        int moveAmount = MathUtils.random(-130,130);
+        Action moveAction = Actions.sequence(
+                Actions.moveBy(moveAmount,10,0.30f, Interpolation.circle),
+                Actions.moveBy(-moveAmount,-10,0.30f, Interpolation.circle)
+        );
+
+        int growAmount = MathUtils.random(-30,100);
+        Action growAction = Actions.sequence(
+                Actions.sizeBy(growAmount,20,0.2f, Interpolation.circle),
+                Actions.sizeBy(-growAmount,-20,0.2f, Interpolation.circle)
+        );
+
+    this.addAction(moveAction);
+    this.addAction(growAction);
+
+    if (this.getHeight() > 170){
+        this.addAction(Actions.rotateBy(MathUtils.randomSign() * 360,0.4f));
+    }
+
     }
 }
