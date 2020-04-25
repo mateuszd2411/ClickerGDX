@@ -16,12 +16,19 @@ public class ClickerGame extends Game {
 
 	private boolean paused;
 
+	private int points;
+
+
 	SpriteBatch batch;
 	Texture img;
 	
 	@Override
 	public void create () {
 		this.setScreen(new SplashScreen(this));
+	}
+
+	public void addPoint(){
+		points++;
 	}
 
 	/**
@@ -34,5 +41,9 @@ public class ClickerGame extends Game {
 
 	public void setPaused(boolean paused) {
 		this.paused = paused;
+	}
+
+	public int getPoints() {
+		return points;
 	}
 }
