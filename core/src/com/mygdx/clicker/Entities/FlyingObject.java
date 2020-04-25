@@ -6,10 +6,16 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.clicker.ClickerGame;
 
 public class FlyingObject extends Image {
 
+    public enum  FlyingObjectType{
+        MONEY,PASSIVE
+    }
+
     public final static String MONEY = "img/money.png";
+    public final static String BOOKS = "img/books.png";
 
     private  final  static int WIDHT = 150;
     private  final  static int HEIGHT = 150;
@@ -17,8 +23,15 @@ public class FlyingObject extends Image {
     private final static int STARTING_X = 0;
     private final static int STARTING_Y = -100;
 
-    public FlyingObject(String texture){
-        super(new Texture(texture));
+    private ClickerGame game;
+    private FlyingObjectType type;
+
+    public FlyingObject(FlyingObjectType type, ClickerGame game){
+        super(new Texture(getTextTextureString(type)));
+
+        this.type = type;
+
+        this.game = game;
 
         this.setOrigin(WIDHT/2, HEIGHT/2);
         this.setSize(WIDHT,HEIGHT);
@@ -29,11 +42,31 @@ public class FlyingObject extends Image {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
-                FlyingObject.this.remove();
+                reactOnClick();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
+    }
+
+    private void reactOnClick() {
+
+        if (FlyingObjectType.MONEY.equals(type)){
+            game.addPoints(50);
+        } else if (FlyingObjectType.PASSIVE.equals(type)){
+            game.addPassiveIncome();
+        }
+
+        FlyingObject.this.remove();
+    }
+
+    private static String getTextTextureString(FlyingObjectType type) {
+        if (FlyingObjectType.MONEY.equals(type)){
+            return MONEY;
+        } else if (FlyingObjectType.PASSIVE.equals(type)){
+            return BOOKS;
+        }
+        return "";
     }
 
     public void flylikeHell(){
