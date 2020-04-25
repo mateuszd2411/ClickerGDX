@@ -3,7 +3,6 @@ package com.mygdx.clicker;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.clicker.Screens.SplashScreen;
@@ -45,7 +44,16 @@ public class ClickerGame extends Game {
 
 	public void addPoint(){
 		points++;
-		prefs.putInteger(GAME_SCORE,points);
+		updateSavedScoreInPrefs();
+	}
+
+	public void resetGameScore() {
+		points = 0;
+		updateSavedScoreInPrefs();
+	}
+
+	private void updateSavedScoreInPrefs() {
+		prefs.putInteger(GAME_SCORE, points);
 		prefs.flush();
 	}
 
@@ -64,4 +72,6 @@ public class ClickerGame extends Game {
 	public int getPoints() {
 		return points;
 	}
+
+
 }
