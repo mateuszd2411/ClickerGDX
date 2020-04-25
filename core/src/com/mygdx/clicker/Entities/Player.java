@@ -18,10 +18,10 @@ public class Player extends Image {
     public Player(){
         super(new Texture("player.png"));
 
-        this.setOrigin(WIDHT/2, HEIGHT/2);
-        this.setSize(WIDHT,HEIGHT);
 
-        // starting position
+         this.setOrigin(WIDHT/2, HEIGHT/2);
+        this.setSize(WIDHT,HEIGHT);
+  // starting position
         this.setPosition(STARTING_X,STARTING_Y);
     }
 
