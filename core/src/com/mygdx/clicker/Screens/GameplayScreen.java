@@ -1,19 +1,18 @@
 package com.mygdx.clicker.Screens;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.mygdx.clicker.ClickerGame;
 import com.mygdx.clicker.Entities.Player;
 import com.mygdx.clicker.Ui.IClickCallback;
 import com.mygdx.clicker.Ui.PlayerButton;
 import com.mygdx.clicker.Ui.ResetScoreButton;
+import com.mygdx.clicker.Ui.ScoreLabel;
 
 public class GameplayScreen extends AbstractScreen{
 
     private Player player;
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
-    private Label scoreLabel;
+    private ScoreLabel scoreLabel;
 
     public GameplayScreen(ClickerGame game) {
         super(game);
@@ -39,11 +38,7 @@ public class GameplayScreen extends AbstractScreen{
     }
 
     private void initScoreLabel() {
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = new BitmapFont();
-        scoreLabel = new Label("",labelStyle);
-        scoreLabel.setX(20);
-        scoreLabel.setY(650);
+        scoreLabel = new ScoreLabel();
         stage.addActor(scoreLabel);
     }
 
