@@ -1,6 +1,9 @@
 package com.mygdx.clicker.Ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -21,4 +24,6 @@ public class ScoreLabel extends Label {
         labelStyle.font = new BitmapFont();
         return labelStyle;
     }
+
+
 }
