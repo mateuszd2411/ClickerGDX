@@ -1,20 +1,18 @@
 package com.mygdx.clicker.Screens;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.clicker.ClickerGame;
 import com.mygdx.clicker.Entities.Player;
 import com.mygdx.clicker.Ui.IClickCallback;
 import com.mygdx.clicker.Ui.PlayerButton;
+import com.mygdx.clicker.Ui.ResetScoreButton;
 
 public class GameplayScreen extends AbstractScreen{
 
     private Player player;
     private PlayerButton playerButton;
-    private Button resetScoreButton;
+    private ResetScoreButton resetScoreButton;
     private Label scoreLabel;
 
     public GameplayScreen(ClickerGame game) {
@@ -29,24 +27,15 @@ public class GameplayScreen extends AbstractScreen{
     }
 
     private void initResetScoreButton() {
-        resetScoreButton = new Button(new Button.ButtonStyle());
-        resetScoreButton.setWidth(100);
-        resetScoreButton.setHeight(100);
-        resetScoreButton.setX(330);
-        resetScoreButton.setY(560);
-        resetScoreButton.setDebug(true);
-
-        stage.addActor(resetScoreButton);
-
-        resetScoreButton.addListener(new ClickListener(){
-
+        resetScoreButton = new ResetScoreButton(new IClickCallback() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+            public void onClick() {
                 game.resetGameScore();
-                return super.touchDown(event, x, y, pointer, button);
             }
         });
+
+
+        stage.addActor(resetScoreButton);
     }
 
     private void initScoreLabel() {
