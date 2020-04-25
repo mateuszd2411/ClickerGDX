@@ -26,16 +26,20 @@ public class Player extends Image {
     }
 
     public void reactOnClick() {
-        int moveAmount = MathUtils.random(-130,130);
+        int xmoveAmount = MathUtils.random(-130,130);
+        int ymoveAmount = 10;
+        float moveActionTime = 0.30f;
         Action moveAction = Actions.sequence(
-                Actions.moveBy(moveAmount,10,0.30f, Interpolation.circle),
-                Actions.moveBy(-moveAmount,-10,0.30f, Interpolation.circle)
+                Actions.moveBy(xmoveAmount,ymoveAmount,moveActionTime, Interpolation.circle),
+                Actions.moveBy(-xmoveAmount,-ymoveAmount,moveActionTime, Interpolation.circle)
         );
 
-        int growAmount = MathUtils.random(-30,100);
+        int xgrowAmount = MathUtils.random(-30,100);
+        int ygrowAmount = 20;
+        float growActionTime = 0.2f;
         Action growAction = Actions.sequence(
-                Actions.sizeBy(growAmount,20,0.2f, Interpolation.circle),
-                Actions.sizeBy(-growAmount,-20,0.2f, Interpolation.circle)
+                Actions.sizeBy(xgrowAmount,ygrowAmount,growActionTime, Interpolation.circle),
+                Actions.sizeBy(-xgrowAmount,-ygrowAmount,growActionTime, Interpolation.circle)
         );
 
     this.addAction(moveAction);
