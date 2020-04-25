@@ -1,5 +1,6 @@
 package com.mygdx.clicker.Screens;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.clicker.ClickerGame;
 import com.mygdx.clicker.Entities.Player;
 import com.mygdx.clicker.Ui.IClickCallback;
@@ -9,6 +10,7 @@ import com.mygdx.clicker.Ui.ScoreLabel;
 
 public class GameplayScreen extends AbstractScreen{
 
+    private Texture bgTexture;
     private Player player;
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
@@ -19,6 +21,7 @@ public class GameplayScreen extends AbstractScreen{
     }
 
     protected void init() {
+        bgTexture = new Texture("bg.png");
         initPlayer();
         initPlayerButton();
         initResetScoreButton();
@@ -65,6 +68,10 @@ public class GameplayScreen extends AbstractScreen{
         update();
 
         System.out.println("Points " + game.getPoints());
+
+        spriteBatch.begin();
+        spriteBatch.draw(bgTexture,0,0);
+        spriteBatch.end();
 
         spriteBatch.begin();
         stage.draw();
