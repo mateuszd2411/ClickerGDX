@@ -20,7 +20,7 @@ public class SplashScreen extends AbstractScreen {
         },1);
     }
 
-    private void init() {
+    protected void init() {
         //todo implement better assets loading when game grows
         splashImg = new Texture("badlogic.jpg");
     }
