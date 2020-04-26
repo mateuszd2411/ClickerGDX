@@ -5,13 +5,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.clicker.ClickerGame;
 import com.mygdx.clicker.Controllers.FlyingObjectController;
 import com.mygdx.clicker.Entities.Player;
+import com.mygdx.clicker.Service.PassiveIncomeService;
 import com.mygdx.clicker.Ui.IClickCallback;
 import com.mygdx.clicker.Ui.PlayerButton;
 import com.mygdx.clicker.Ui.ResetScoreButton;
 import com.mygdx.clicker.Ui.ScoreLabel;
 
 
-public class GameplayScreen extends AbstractScreen{
+public class GameplayScreen extends AbstractScreen {
 
     private Image bgImage;
     private Player player;
@@ -19,6 +20,7 @@ public class GameplayScreen extends AbstractScreen{
     private ResetScoreButton resetScoreButton;
     private ScoreLabel scoreLabel;
     private FlyingObjectController flyingObjectController;
+    private PassiveIncomeService passiveIncomeService;
 
     public GameplayScreen(ClickerGame game) {
         super(game);
@@ -32,6 +34,27 @@ public class GameplayScreen extends AbstractScreen{
         initScoreLabel();
         initFlyingStuffController();
         startTheMisuc();
+        initPassiveIncomeService();
+    }
+
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+        update();
+
+        spriteBatch.begin();
+        stage.draw();
+        spriteBatch.end();
+    }
+
+    private void update() {
+        scoreLabel.setText("Score: " + game.getScoreService().getPoints());
+        stage.act();
+    }
+
+    private void initPassiveIncomeService() {
+        passiveIncomeService = new PassiveIncomeService(game.getScoreService());
+        passiveIncomeService.start();
     }
 
     private void startTheMisuc() {
@@ -40,7 +63,7 @@ public class GameplayScreen extends AbstractScreen{
 
 
     private void initFlyingStuffController() {
-        flyingObjectController = new FlyingObjectController(game,stage);
+        flyingObjectController = new FlyingObjectController(game, stage);
     }
 
     private void initBg() {
@@ -82,19 +105,5 @@ public class GameplayScreen extends AbstractScreen{
         stage.addActor(player);
     }
 
-    @Override
-    public void render(float delta) {
-        super.render(delta);
-        update();
-
-        spriteBatch.begin();
-        stage.draw();
-        spriteBatch.end();
-    }
-
-    private void update() {
-        scoreLabel.setText("Score: " + game.getScoreService().getPoints());
-        stage.act();
-    }
 }
 
