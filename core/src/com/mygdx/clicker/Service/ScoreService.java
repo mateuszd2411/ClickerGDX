@@ -85,7 +85,7 @@ public class ScoreService {
         return passiveIncome;
     }
 
-    private long getSavedTimestamp(){
+    public long getSavedTimestamp(){
         return prefs.getLong(GAME_SAVE_TIMESTAMP);
     }
 
