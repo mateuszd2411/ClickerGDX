@@ -1,17 +1,13 @@
 package com.mygdx.clicker;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.clicker.Screens.SplashScreen;
+import com.mygdx.clicker.Service.ScoreService;
 import com.mygdx.clicker.Service.SoundService;
 
 public class ClickerGame extends Game {
-
-	public final  static  String GAME_PREFS = "com.mygdx.clicker.prefs";
-	public final  static  String GAME_SCORE = "com.mygdx.clicker.prefs.score";
 
 	public static  String GAME_NAME = "Clicker";
 
@@ -19,17 +15,10 @@ public class ClickerGame extends Game {
 	public static int HEIGHT = 700;
 
 	private SoundService soundService;
+	private ScoreService scoreService;
 
 	private boolean paused;
 
-	private Preferences prefs;
-
-	private int points;
-
-
-	SpriteBatch batch;
-	Texture img;
-	
 	@Override
 	public void create () {
 		init();
@@ -37,43 +26,18 @@ public class ClickerGame extends Game {
 	}
 
 	private void init() {
-		prefs = Gdx.app.getPreferences(GAME_PREFS);
-		loadScore();
 		initSoundService();
+		initScoreService();
+	}
+
+	private void initScoreService() {
+		scoreService = new ScoreService();
 	}
 
 	private void initSoundService() {
 		soundService = new SoundService();
 	}
 
-	private void loadScore() {
-		points = prefs.getInteger(GAME_SCORE);
-	}
-
-	public void addPoints(int pointsToAdd){
-		points += pointsToAdd;
-		updateSavedScoreInPrefs();
-	}
-
-	public void addPoint(){
-		points++;
-		updateSavedScoreInPrefs();
-	}
-
-	public void resetGameScore() {
-		points = 0;
-		updateSavedScoreInPrefs();
-	}
-
-	private void updateSavedScoreInPrefs() {
-		prefs.putInteger(GAME_SCORE, points);
-		prefs.flush();
-	}
-
-	public void addPassiveIncome() {
-		//todo implement
-		System.out.println("passive income type");
-	}
 
 	/**
 	 * getters and setters
@@ -87,12 +51,12 @@ public class ClickerGame extends Game {
 		this.paused = paused;
 	}
 
-	public int getPoints() {
-		return points;
-	}
-
     public SoundService getSoundService() {
         return soundService;
     }
+
+	public ScoreService getScoreService() {
+		return scoreService;
+	}
 
 }
