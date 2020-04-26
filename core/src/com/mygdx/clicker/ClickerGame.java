@@ -6,6 +6,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.clicker.Screens.SplashScreen;
+import com.mygdx.clicker.Service.SoundService;
 
 public class ClickerGame extends Game {
 
@@ -16,6 +17,8 @@ public class ClickerGame extends Game {
 
 	public static int WIDTH = 480;
 	public static int HEIGHT = 700;
+
+	private SoundService soundService;
 
 	private boolean paused;
 
@@ -36,6 +39,11 @@ public class ClickerGame extends Game {
 	private void init() {
 		prefs = Gdx.app.getPreferences(GAME_PREFS);
 		loadScore();
+		initSoundService();
+	}
+
+	private void initSoundService() {
+		soundService = new SoundService();
 	}
 
 	private void loadScore() {
@@ -83,6 +91,8 @@ public class ClickerGame extends Game {
 		return points;
 	}
 
-
+    public SoundService getSoundService() {
+        return soundService;
+    }
 
 }
