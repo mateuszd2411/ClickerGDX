@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.clicker.ClickerGame;
 import com.mygdx.clicker.Controllers.FlyingObjectController;
+import com.mygdx.clicker.Controllers.RandomEventController;
 import com.mygdx.clicker.Entities.Player;
 import com.mygdx.clicker.Service.PassiveIncomeService;
 import com.mygdx.clicker.Ui.BasicDialog;
@@ -22,6 +23,7 @@ public class GameplayScreen extends AbstractScreen {
     private GameLabel scoreLabel;
     private FlyingObjectController flyingObjectController;
     private PassiveIncomeService passiveIncomeService;
+    private RandomEventController randomEventController;
 
     public GameplayScreen(ClickerGame game) {
         super(game);
@@ -37,6 +39,11 @@ public class GameplayScreen extends AbstractScreen {
         startTheMisuc();
         initPassiveIncomeService();
         initPassiveIncomeInfoDialog();
+        initRandomEventController();
+    }
+
+    private void initRandomEventController() {
+        randomEventController = new RandomEventController(game);
     }
 
     private void initPassiveIncomeInfoDialog() {
