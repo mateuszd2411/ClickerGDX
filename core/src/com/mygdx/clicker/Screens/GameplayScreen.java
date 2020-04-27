@@ -6,6 +6,7 @@ import com.mygdx.clicker.ClickerGame;
 import com.mygdx.clicker.Controllers.FlyingObjectController;
 import com.mygdx.clicker.Controllers.RandomEventController;
 import com.mygdx.clicker.Entities.Player;
+import com.mygdx.clicker.Service.FeatureFlagService;
 import com.mygdx.clicker.Service.PassiveIncomeService;
 import com.mygdx.clicker.Ui.BasicDialog;
 import com.mygdx.clicker.Ui.IClickCallback;
@@ -40,6 +41,13 @@ public class GameplayScreen extends AbstractScreen {
         initPassiveIncomeService();
         initPassiveIncomeInfoDialog();
         initRandomEventController();
+        startShop();
+    }
+
+    private void startShop() {
+        if (game.getFeatureFlagService().hasFeature(FeatureFlagService.FEATURE_SHOP)){
+            game.getShopService().dummyMethod();
+        }
     }
 
     private void initRandomEventController() {

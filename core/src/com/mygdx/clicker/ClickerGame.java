@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.clicker.Screens.SplashScreen;
 import com.mygdx.clicker.Service.FeatureFlagService;
 import com.mygdx.clicker.Service.ScoreService;
+import com.mygdx.clicker.Service.ShopService;
 import com.mygdx.clicker.Service.SoundService;
 
 public class ClickerGame extends Game {
@@ -18,6 +19,7 @@ public class ClickerGame extends Game {
 	private SoundService soundService;
 	private ScoreService scoreService;
 	private FeatureFlagService featureFlagService;
+	private ShopService shopService;
 
 	private boolean paused;
 
@@ -31,9 +33,14 @@ public class ClickerGame extends Game {
 		initSoundService();
 		initScoreService();
 		initfeatureFlagService();
+		initShopService();
 	}
 
-    private void initfeatureFlagService() {
+	private void initShopService() {
+		shopService = new ShopService();
+	}
+
+	private void initfeatureFlagService() {
         featureFlagService = new FeatureFlagService();
     }
 
@@ -70,4 +77,7 @@ public class ClickerGame extends Game {
         return featureFlagService;
     }
 
+	public ShopService getShopService() {
+		return shopService;
+	}
 }
