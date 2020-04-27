@@ -9,6 +9,8 @@ public class PassiveIncomeService {
 
     private ScoreService scoreService;
 
+    private int pointsToAdd;
+
     private final static int INFINITE = 100_000_000;
 
     public PassiveIncomeService(ScoreService scoreService){
@@ -40,10 +42,14 @@ public class PassiveIncomeService {
 
     private void addPointsBasedOnPassedTime(long seconds){
         if(seconds > 0){
-            int points = (int) (seconds * scoreService.getPassiveIncome());
-            points = points / 5;
-            scoreService.addPoints(points);
+            pointsToAdd = (int) (seconds * scoreService.getPassiveIncome());
+            pointsToAdd = pointsToAdd / 5;
+            scoreService.addPoints(pointsToAdd);
         }
+    }
+
+    public int getPointsToAdd(){
+        return pointsToAdd;
     }
 
 

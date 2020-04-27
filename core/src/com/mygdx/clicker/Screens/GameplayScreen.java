@@ -6,10 +6,11 @@ import com.mygdx.clicker.ClickerGame;
 import com.mygdx.clicker.Controllers.FlyingObjectController;
 import com.mygdx.clicker.Entities.Player;
 import com.mygdx.clicker.Service.PassiveIncomeService;
+import com.mygdx.clicker.Ui.BasicDialog;
 import com.mygdx.clicker.Ui.IClickCallback;
 import com.mygdx.clicker.Ui.PlayerButton;
 import com.mygdx.clicker.Ui.ResetScoreButton;
-import com.mygdx.clicker.Ui.ScoreLabel;
+import com.mygdx.clicker.Ui.GameLabel;
 
 
 public class GameplayScreen extends AbstractScreen {
@@ -18,7 +19,7 @@ public class GameplayScreen extends AbstractScreen {
     private Player player;
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
-    private ScoreLabel scoreLabel;
+    private GameLabel scoreLabel;
     private FlyingObjectController flyingObjectController;
     private PassiveIncomeService passiveIncomeService;
 
@@ -35,6 +36,15 @@ public class GameplayScreen extends AbstractScreen {
         initFlyingStuffController();
         startTheMisuc();
         initPassiveIncomeService();
+        initPassiveIncomeInfoDialog();
+    }
+
+    private void initPassiveIncomeInfoDialog() {
+        if (passiveIncomeService.getPointsToAdd() > 0){
+            BasicDialog basicDialog = new BasicDialog();
+            stage.addActor(basicDialog);
+            basicDialog.initContent("Passive Income gained: " + passiveIncomeService.getPointsToAdd());
+        }
     }
 
     @Override
@@ -90,7 +100,7 @@ public class GameplayScreen extends AbstractScreen {
     }
 
     private void initScoreLabel() {
-        scoreLabel = new ScoreLabel();
+        scoreLabel = new GameLabel();
         stage.addActor(scoreLabel);
     }
 
