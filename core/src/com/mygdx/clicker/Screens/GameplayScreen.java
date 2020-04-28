@@ -45,7 +45,7 @@ public class GameplayScreen extends AbstractScreen {
     }
 
     private void startShop() {
-        if (game.getFeatureFlagService().hasFeature(FeatureFlagService.FEATURE_SHOP)){
+        if (!game.getFeatureFlagService().hasFeature(FeatureFlagService.FEATURE_SHOP)){
             game.getShopService().dummyMethod();
         }
     }

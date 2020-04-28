@@ -9,28 +9,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
+public class BalanceService {
+    public static final String REQUEST_URL = "http://mateuszd2411.pythonanywhere.com/clickergame/api/v1.0/balance";
+    public static final String BALANCE_MONEY_CLIKC = "BALANCE_MONEY_CLIKC";
 
-public class FeatureFlagService {
+    private int moneyClickValue;
 
-    public static final String REQUEST_URL = "http://mateuszd2411.pythonanywhere.com/clickergame/api/v1.0/features";
-    public static final String FEATURE_SHOP = "FEATURE_SHOP";
-
-    private Map<String,Boolean> featuresMap;
-
-    public FeatureFlagService() {
-        featuresMap = new HashMap<String, Boolean>();
-    }
-
-    public void makeFlagsRequest(final IRequestCallback requestCallback){
+    public void makeBalanceServiceRequest(final IRequestCallback requestCallback){
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(REQUEST_URL).build();
+
         Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 parseResponse(httpResponse.getResultAsString());
-
                 requestCallback.onSucceed();
             }
 
@@ -48,27 +40,24 @@ public class FeatureFlagService {
     }
 
     private void parseResponse(String resultAsString) {
-        System.out.println("Response: " + resultAsString);
-
         try {
             JSONObject obj = new JSONObject(resultAsString);
-            JSONArray jsonArray = obj.getJSONArray("features");
+            JSONArray jsonArray = obj.getJSONArray("balance");
             for (int i = 0; i < jsonArray.length(); i++){
                 JSONObject innerObj = jsonArray.getJSONObject(i);
-                featuresMap.put((String)innerObj.get("name"),(Boolean)innerObj.get("active"));
+                if (innerObj.get("name").equals(BALANCE_MONEY_CLIKC)){
+                    moneyClickValue = (Integer)innerObj.get("value");
+                    System.out.println("MoneyClickValue: " + moneyClickValue);
+                }
             }
-            System.out.println("Parse map: " + featuresMap);
-
         }catch (JSONException e){
-            e.printStackTrace();
+            e.getMessage();
         }
+
+
     }
 
-    public boolean hasFeature(String s){
-        if (featuresMap.containsKey(s)){
-            return false;
-        }else {
-            return featuresMap.get(s);
-        }
+    public int getMoneyClickValue() {
+        return moneyClickValue;
     }
 }
